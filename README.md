@@ -1,4 +1,4 @@
-# BigDecimal
+# BigDecimal Patch
 
 Allows correct `.to_s`, as well as `#from_json` and `.to_json` capabilities for `BigDecimal`
 
