@@ -1,0 +1,12 @@
+name: BigDecimal
+
+version: 0.1.0
+
+crystal: 0.35.1
+
+authors:
+  - Duke Nguyen <duke@place.technology>
+
+description: BigDecimal with (de)serialisation from_json, to_json, and correct to_s capabilities
+
+license: MIT

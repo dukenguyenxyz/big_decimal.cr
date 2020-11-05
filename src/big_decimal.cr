@@ -29,6 +29,35 @@ struct BigDecimal < Number
   def to_json(json : JSON::Builder)
     json.number(self)
   end
+
+  def to_s(io : IO) : Nil
+    factor_powers_of_ten
+
+    s = @value.to_s
+
+    if @scale == 0
+      io << s
+      return
+    end
+
+    if @scale >= s.size && @value >= 0
+      io << "0."
+      (@scale - s.size).times do
+        io << '0'
+      end
+      io << s
+    elsif @scale >= s.size && @value < 0
+      io << "-0.0"
+      (@scale - s.size).times do
+        io << '0'
+      end
+      io << s[1..-1]
+    elsif (offset = s.size - @scale) == 1 && @value < 0
+      io << "-0." << s[offset..-1]
+    else
+      io << s[0...offset] << "." << s[offset..-1]
+    end
+  end
 end
 
 class JSON::Builder
