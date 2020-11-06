@@ -57,6 +57,32 @@ struct BigDecimal < Number
     else
       io << s[0...offset] << "." << s[offset..-1]
     end
+
+    # if @scale >= s.size
+    #   io << "-" if @value < 0
+    #   io << "0."
+    #   io << "0" if @value < 0
+
+    #   (@scale - s.size).times do
+    #     io << '0'
+    #   end
+
+    #   if @value >= 0
+    #     io << s
+    #   else
+    #     io << s[1..-1]
+    #   end
+    # else
+    #   offset = s.size - @scale
+
+    #   if offset == 1 && @value < 0
+    #     io << "-0"
+    #   else
+    #     io << s[0...offset]
+    #   end
+
+    #   io << "." << s[offset..-1]
+    # end
   end
 end
 
