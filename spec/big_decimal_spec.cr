@@ -66,15 +66,21 @@ describe BigDecimal do
     end
 
     it "#from_json and .to_json with 0 < values < 1" do
-      # # These notes are for reference prior to the fix of `BigDecimal.to_s`
+      # These notes are for reference prior to the fix of `BigDecimal.to_s`
       # Floats record -1 < val < 0 as -0.{{val}}, however, BigDecimals record these as -.{{val}}. This causes a JSON parse error.
       # Note this is not the case for 0 < val < 1, e.g. 0.{{val}}
       # This consistency should be resolved, e.g.:
-      # (-0.23).to_f32.to_json    ## "-0.23"
-      # ("-.23").to_f32.to_json   ## "-0.23"
-      #
-      # (-0.23).to_big_d.to_json  ## "-.23"
-      # ("-.23").to_big_d.to_json ## "-.23"
+      # pp! (-0.23).to_f32.to_s  # # "-0.23"
+      # pp! ("-.23").to_f32.to_s # # "-0.23"
+
+      # pp! (-0.23).to_f64.to_s  # # "-0.23"
+      # pp! ("-.23").to_f64.to_s # # "-0.23"
+
+      # pp! (-0.23).to_big_f.to_s # # "-0.230000000000000009992"
+      # pp! ("-.23").to_big_f.to_s # # "-0.23"
+
+      # pp! (-0.23).to_big_d.to_s  # # "-.23"
+      # pp! ("-.23").to_big_d.to_s # # "-.23"
 
       BigDecimal.from_json(BigDecimal.new("-.2").to_json)
         .should eq(BigDecimal.new(BigInt.new(-2), 1))
